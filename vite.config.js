@@ -6,7 +6,7 @@ export default defineConfig({
      plugins: [react()],
      server: {
           proxy: {
-               "/api": "https://truefeedback-backend.vercel.app",
+               "/api": "",
           },
      },
 });

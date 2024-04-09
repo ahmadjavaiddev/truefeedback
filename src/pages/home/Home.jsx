@@ -59,7 +59,7 @@ const Home = () => {
                </div>
 
                <div className="grid grid-cols-2 gap-4 mt-10">
-                    {users.map((user) => (
+                    {users?.map((user) => (
                          <Link
                               to={`/u/${user?.username}`}
                               key={`${user?._id}-${Math.random()}`}

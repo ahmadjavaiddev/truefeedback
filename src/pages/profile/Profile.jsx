@@ -3,19 +3,17 @@ import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
      const [messages, setMessages] = useState([]);
      const user = useSelector((state) => state?.user?.user?.user);
      const [loading, setloading] = useState(true);
      const [acceptMessages, setAcceptMessages] = useState(false);
-     const navigate = useNavigate();
 
      const handleCopyLink = async () => {
           try {
                await navigator.clipboard.writeText(
-                    `http://localhost:5173/u/${user?.username}`
+                    `${import.meta.env.VITE_WEBSITE_URL}/u/${user?.username}`
                );
                toast.success("Link Copied Successfully!");
           } catch (error) {
@@ -67,13 +65,10 @@ const ProfilePage = () => {
      useEffect(() => {
           (async () => {
                try {
-                    // if (!user) {
-                    //      toast.error("Please Login to view your messages");
-                    //      setloading(false);
-                    //      navigate("/login");
-                    //      return;
-                    // }
-
+                    console.log(
+                         "URL ::",
+                         `${import.meta.env.VITE_WEBSITE_URL}/u/${user?.username}`
+                    );
                     const response = await axios.get(`/api/v1/messages`);
                     setMessages(response.data.data);
 
@@ -103,7 +98,7 @@ const ProfilePage = () => {
                               <input
                                    className="w-full bg-[#FAFAFA] px-3 py-2 rounded-lg mt-2 text-black text-lg font-semibold"
                                    type="text"
-                                   value={`http://localhost:5173/u/${user?.username}`}
+                                   value={`${import.meta.env.VITE_WEBSITE_URL}/u/${user?.username}`}
                                    readOnly
                                    disabled
                               />

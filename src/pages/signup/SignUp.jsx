@@ -25,12 +25,15 @@ const SignUpPage = () => {
      const handleSignUp = async (e) => {
           e.preventDefault();
           try {
-               const response = await axios.post("/api/v1/users/register", {
-                    username: userData.username,
-                    fullName: userData.fullName,
-                    email: userData.email,
-                    password: userData.password,
-               });
+               const response = await axios.post(
+                    `${import.meta.env.VITE_SERVER_URL}/api/v1/users/register`,
+                    {
+                         username: userData.username,
+                         fullName: userData.fullName,
+                         email: userData.email,
+                         password: userData.password,
+                    }
+               );
 
                if (response.data.data) {
                     setUserData({

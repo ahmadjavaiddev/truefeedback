@@ -8,9 +8,6 @@ const App = () => {
 
      useEffect(() => {
           (async () => {
-               // const products = await axios.get("/api/v1/products");
-
-               // dispatch(setProducts(products.data.data));
                dispatch(
                     setCurrentUser(JSON.parse(localStorage.getItem("user")))
                );

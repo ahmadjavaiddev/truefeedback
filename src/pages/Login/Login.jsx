@@ -32,7 +32,7 @@ const Login = () => {
      const handleLogin = async (e) => {
           e.preventDefault();
           try {
-               const response = await axios.post("/api/v1/users/login", {
+               const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/v1/users/login`, {
                     email: userData.email,
                     password: userData.password,
                });

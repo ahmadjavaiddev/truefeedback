@@ -24,7 +24,7 @@ const ProfilePage = () => {
      const handleDeleteMessage = async (messageId) => {
           try {
                const response = await axios.delete(
-                    `/api/v1/messages/delete/${messageId}`
+                    `${import.meta.env.VITE_SERVER_URL}/api/v1/messages/delete/${messageId}`
                );
                if (response.data.data) {
                     const newMessages = messages.filter(
@@ -40,7 +40,7 @@ const ProfilePage = () => {
 
      const handleReloadMessages = async () => {
           try {
-               const response = await axios.get(`/api/v1/messages`);
+               const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/v1/messages`);
                setMessages(response.data.data);
                setloading(false);
                toast.success("Messages Reloaded Successfully!");
@@ -51,7 +51,7 @@ const ProfilePage = () => {
 
      const handleAcceptMessages = async () => {
           try {
-               const response = await axios.post(`/api/v1/messages/accept`, {
+               const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/v1/messages/accept`, {
                     value: !acceptMessages,
                });
 
@@ -69,11 +69,11 @@ const ProfilePage = () => {
                          "URL ::",
                          `${import.meta.env.VITE_WEBSITE_URL}/u/${user?.username}`
                     );
-                    const response = await axios.get(`/api/v1/messages`);
+                    const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/v1/messages`);
                     setMessages(response.data.data);
 
                     const responseAccept = await axios.get(
-                         `/api/v1/messages/userstatus`
+                         `${import.meta.env.VITE_SERVER_URL}/api/v1/messages/userstatus`
                     );
 
                     setAcceptMessages(responseAccept.data.data);

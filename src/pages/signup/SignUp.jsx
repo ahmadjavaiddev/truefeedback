@@ -25,7 +25,7 @@ const SignUpPage = () => {
      const handleSignUp = async (e) => {
           e.preventDefault();
           try {
-               const response = await axios.post(`/api/v1/users/register`, {
+               const response = await axios.post(`https://truefeedback-backend.vercel.app/api/v1/users/register`, {
                     username: userData.username,
                     fullName: userData.fullName,
                     email: userData.email,

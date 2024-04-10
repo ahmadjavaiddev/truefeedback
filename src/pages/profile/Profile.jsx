@@ -26,7 +26,7 @@ const ProfilePage = () => {
      const handleDeleteMessage = async (messageId) => {
           try {
                const response = await axios.delete(
-                    `/api/v1/messages/delete/${messageId}`,
+                    `https://truefeedback-backend.vercel.app/api/v1/messages/delete/${messageId}`,
                     {
                          headers: {
                               Authorization: `Bearer ${userToken}`,
@@ -47,7 +47,7 @@ const ProfilePage = () => {
 
      const handleReloadMessages = async () => {
           try {
-               const response = await axios.get(`/api/v1/messages`, {
+               const response = await axios.get(`https://truefeedback-backend.vercel.app/api/v1/messages`, {
                     headers: {
                          Authorization: `Bearer ${userToken}`,
                     },
@@ -62,7 +62,7 @@ const ProfilePage = () => {
 
      const handleAcceptMessages = async () => {
           try {
-               const response = await axios.post(`/api/v1/messages/accept`, {
+               const response = await axios.post(`https://truefeedback-backend.vercel.app/api/v1/messages/accept`, {
                     value: !acceptMessages,
                     headers: {
                          Authorization: `Bearer ${userToken}`,
@@ -81,7 +81,7 @@ const ProfilePage = () => {
                try {
                     // const userToken = retriveToken();
 
-                    const response = await axios.get(`/api/v1/messages`, {
+                    const response = await axios.get(`https://truefeedback-backend.vercel.app/api/v1/messages`, {
                          headers: {
                               Authorization: `Bearer ${userToken}`,
                          },
@@ -89,7 +89,7 @@ const ProfilePage = () => {
                     setMessages(response.data.data);
 
                     const responseAccept = await axios.get(
-                         `/api/v1/messages/userstatus`,
+                         `https://truefeedback-backend.vercel.app/api/v1/messages/userstatus`,
                          {
                               headers: {
                                    Authorization: `Bearer ${userToken}`,

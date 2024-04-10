@@ -113,12 +113,12 @@ const ProfilePage = () => {
 
      return (
           <>
-               <div className="w-[1120px] mx-auto mt-20">
+               <div className="sm:w-[700px] md:w-[800px] lg:w-[900px] xl:w-[1000px] w-full mx-auto px-4 mt-20">
                     <div>
-                         <h2 className="text-3xl text-black font-semibold">
+                         <h2 className="text-2xl lg:text-3xl text-black font-semibold">
                               User Dashboard
                          </h2>
-                         <h2 className="text-xl text-black font-semibold mt-3">
+                         <h2 className="text-md lg:text-lg text-black font-semibold mt-3">
                               Copy Your Unique Link
                          </h2>
                          <div className="flex">
@@ -170,15 +170,15 @@ const ProfilePage = () => {
                     </div>
 
                     {!loading ? (
-                         <div className="grid grid-cols-2 mt-10 gap-5 w-full">
+                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full mt-5">
                               {messages?.map((message) => (
                                    <div
                                         key={message?._id}
-                                        className="p-5 text-black text-xl font-semibold rounded-lg border border-gray-300 flex justify-between"
+                                        className="p-5 text-black text-xl font-semibold rounded-lg border border-gray-300 flex justify-between items-center"
                                    >
                                         <p>{message?.content}</p>
                                         <button
-                                             className="bg-red-500 text-white px-3 py-2 font-semibold rounded-lg"
+                                             className="bg-red-500 text-white text-md px-3 py-1 lg:py-2 font-semibold rounded-lg"
                                              onClick={() =>
                                                   handleDeleteMessage(
                                                        message?._id

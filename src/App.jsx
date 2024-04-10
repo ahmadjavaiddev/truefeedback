@@ -15,7 +15,7 @@ const App = () => {
      }, []);
 
      return (
-          <div className="w-[1300px] mx-auto my-10">
+          <div className="my-10">
                <HomePage />
           </div>
      );

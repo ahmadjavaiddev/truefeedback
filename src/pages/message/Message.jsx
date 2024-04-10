@@ -23,7 +23,9 @@ const MessagePage = () => {
 
      const handleSuggestMessages = async () => {
           try {
-               const response = await axios.get(`https://truefeedback-backend.vercel.app/api/v1/messages/generate`);
+               const response = await axios.get(
+                    `https://truefeedback-backend.vercel.app/api/v1/messages/generate`
+               );
 
                setSuggestedMessages(response.data.data);
           } catch (error) {
@@ -42,10 +44,13 @@ const MessagePage = () => {
                     return;
                }
 
-               const response = await axios.post(`https://truefeedback-backend.vercel.app/api/v1/messages/create`, {
-                    content: message,
-                    username: username,
-               });
+               const response = await axios.post(
+                    `https://truefeedback-backend.vercel.app/api/v1/messages/create`,
+                    {
+                         content: message,
+                         username: username,
+                    }
+               );
                setMessage("");
                toast.success("Message Sent Successfully!");
           } catch (error) {
@@ -60,7 +65,7 @@ const MessagePage = () => {
      }, [message]);
 
      return (
-          <div className="w-[900px] mx-auto mb-20">
+          <div className="md:w-[700px] w-full mx-auto px-4 mb-20">
                <div className="mt-20">
                     <h1 className="text-3xl font-bold text-gray-900 text-center">
                          Public Profile Link

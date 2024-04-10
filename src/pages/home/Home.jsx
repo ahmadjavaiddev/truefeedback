@@ -35,21 +35,17 @@ const Home = () => {
      }, []);
 
      return (
-          <div className="w-[900px] mx-auto">
-               <div>
-                    <h1 className="text-3xl font-bold text-center">
-                         TrueFeedback
-                    </h1>
-                    <p className="text-center mt-3">
-                         A platform for anonymous feedback
-                    </p>
+          <div className="md:w-[800px] sm:w-[600px] w-full mx-auto">
+               <div className="text-center px-4 py-4">
+                    <h1 className="text-3xl font-bold">TrueFeedback</h1>
+                    <p className="mt-3">A platform for anonymous feedback</p>
                </div>
 
-               <div className="w-[500px] mx-auto mt-5 flex">
+               <div className="flex justify-between items-center px-4 py-4">
                     <input
                          type="text"
                          id="search-users"
-                         className="w-full px-3 py-2 text-gray-700 bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-500 font-semibold"
+                         className="w-full px-3 py-2 text-gray-700 bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-500 font-semibold md:mb-0"
                          placeholder="Search Users"
                          onChange={(e) => setQuery(e.target.value)}
                     />
@@ -61,8 +57,7 @@ const Home = () => {
                          Search
                     </button>
                </div>
-
-               <div className="grid grid-cols-2 gap-4 mt-10">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 pb-10">
                     {users?.map((user) => (
                          <Link
                               to={`/u/${user?.username}`}
@@ -72,9 +67,7 @@ const Home = () => {
                               <div className="flex justify-between items-center">
                                    <div className="flex items-center">
                                         <img
-                                             src={
-                                                  "https://images.pexels.com/photos/7989741/pexels-photo-7989741.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                                             }
+                                             src="https://images.pexels.com/photos/7989741/pexels-photo-7989741.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
                                              alt="avatar"
                                              className="w-10 h-10 rounded-full"
                                         />

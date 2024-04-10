@@ -22,46 +22,47 @@ const Header = () => {
      };
 
      return (
-          <header>
-               <div className="bg-[#111827]">
-                    <div className="text-white flex justify-between items-center py-4 w-[1250px] mx-auto">
-                         <div>
-                              <Link to={"/"} className="text-2xl font-bold">
-                                   True Feedback
-                              </Link>
-                         </div>
-                         <div>
-                              {user && (
-                                   <h3 className="text-xl">
-                                        Welcome, {user?.fullName?.toUpperCase()}
-                                   </h3>
-                              )}
-                         </div>
-                         <div>
-                              {!user ? (
+          <header className="bg-[#111827]">
+               <div className=" lg:w-[1000px] mx-auto flex justify-between items-center py-4 px-4 md:px-8">
+                    <div>
+                         <Link
+                              to={"/"}
+                              className="text-lg md:text-2xl font-bold text-white"
+                         >
+                              True Feedback
+                         </Link>
+                    </div>
+                    <div>
+                         {user && (
+                              <h3 className="hidden md:block text-xl text-white">
+                                   Welcome, {user?.fullName?.toUpperCase()}
+                              </h3>
+                         )}
+                    </div>
+                    <div>
+                         {user ? (
+                              <>
                                    <Link
-                                        className="px-3 py-1 mt-3 bg-white text-black text-lg font-semibold rounded-lg border border-gray-300"
                                         to={"/login"}
+                                        className="px-2 py-1 md:px-3 md:py-1 ml-3 bg-white text-black md:text-lg font-semibold rounded-lg border border-gray-300"
                                    >
-                                        Login
+                                        Dashboard
                                    </Link>
-                              ) : (
-                                   <>
-                                        <Link
-                                             className="px-3 py-1 mt-3 mr-3 bg-white text-black text-lg font-semibold rounded-lg border border-gray-300"
-                                             to={"/login"}
-                                        >
-                                             Dashboard
-                                        </Link>
-                                        <button
-                                             onClick={handleUserLogout}
-                                             className="px-3 py-1 mt-3 bg-white text-black text-lg font-semibold rounded-lg border border-gray-300"
-                                        >
-                                             Logout
-                                        </button>
-                                   </>
-                              )}
-                         </div>
+                                   <button
+                                        onClick={handleUserLogout}
+                                        className="px-2 py-1 md:px-3 md:py-1 ml-3 bg-white text-black md:text-lg font-semibold rounded-lg border border-gray-300"
+                                   >
+                                        Logout
+                                   </button>
+                              </>
+                         ) : (
+                              <Link
+                                   to={"/login"}
+                                   className="px-2 py-1 md:px-3 md:py-1 ml-3 bg-white text-black md:text-lg font-semibold rounded-lg border border-gray-300"
+                              >
+                                   Login
+                              </Link>
+                         )}
                     </div>
                </div>
           </header>

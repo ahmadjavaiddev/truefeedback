@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../app/features/user/userSlice";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,6 +12,7 @@ const SignUpPage = () => {
           email: "",
           password: "",
      });
+     const [buttonDisabled, setButtonDisabled] = useState(true);
      const dispatch = useDispatch();
      const navigate = useNavigate();
 
@@ -58,6 +59,24 @@ const SignUpPage = () => {
                console.log("Error Signing ::", error);
           }
      };
+
+     useEffect(() => {
+          if (
+               userData.username.length > 2 &&
+               userData.fullName.length > 1 &&
+               userData.email.length > 7 &&
+               userData.password.length > 7
+          ) {
+               setButtonDisabled(false);
+          } else {
+               setButtonDisabled(true);
+          }
+     }, [
+          userData.username,
+          userData.fullName,
+          userData.email,
+          userData.password,
+     ]);
 
      return (
           <div className="mt-10">
@@ -139,9 +158,15 @@ const SignUpPage = () => {
                               <span className="text-blue-500">Sign In</span>
                          </Link>
                     </div>
+
                     <button
                          type="submit"
-                         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                         className={
+                              buttonDisabled
+                                   ? `text-white bg-gray-400 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center`
+                                   : `text-white bg-[#0F172A] hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center`
+                         }
+                         disabled={buttonDisabled}
                     >
                          Submit
                     </button>

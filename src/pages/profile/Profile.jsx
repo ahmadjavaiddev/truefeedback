@@ -24,7 +24,7 @@ const ProfilePage = () => {
      const handleDeleteMessage = async (messageId) => {
           try {
                const response = await axios.delete(
-                    `${import.meta.env.VITE_SERVER_URL}/api/v1/messages/delete/${messageId}`
+                    `/api/v1/messages/delete/${messageId}`
                );
                if (response.data.data) {
                     const newMessages = messages.filter(
@@ -40,9 +40,7 @@ const ProfilePage = () => {
 
      const handleReloadMessages = async () => {
           try {
-               const response = await axios.get(
-                    `${import.meta.env.VITE_SERVER_URL}/api/v1/messages`
-               );
+               const response = await axios.get(`/api/v1/messages`);
                setMessages(response.data.data);
                setloading(false);
                toast.success("Messages Reloaded Successfully!");
@@ -53,12 +51,9 @@ const ProfilePage = () => {
 
      const handleAcceptMessages = async () => {
           try {
-               const response = await axios.post(
-                    `${import.meta.env.VITE_SERVER_URL}/api/v1/messages/accept`,
-                    {
-                         value: !acceptMessages,
-                    }
-               );
+               const response = await axios.post(`/api/v1/messages/accept`, {
+                    value: !acceptMessages,
+               });
 
                setAcceptMessages(response.data.data);
                toast.success("Messages Status Updated Successfully!");
@@ -70,13 +65,11 @@ const ProfilePage = () => {
      useEffect(() => {
           (async () => {
                try {
-                    const response = await axios.get(
-                         `${import.meta.env.VITE_SERVER_URL}/api/v1/messages`
-                    );
+                    const response = await axios.get(`/api/v1/messages`);
                     setMessages(response.data.data);
 
                     const responseAccept = await axios.get(
-                         `${import.meta.env.VITE_SERVER_URL}/api/v1/messages/userstatus`
+                         `/api/v1/messages/userstatus`
                     );
 
                     setAcceptMessages(responseAccept.data.data);

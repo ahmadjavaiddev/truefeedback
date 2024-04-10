@@ -23,7 +23,7 @@ const MessagePage = () => {
 
      const handleSuggestMessages = async () => {
           try {
-               const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/v1/messages/generate`);
+               const response = await axios.get(`/api/v1/messages/generate`);
 
                setSuggestedMessages(response.data.data);
           } catch (error) {
@@ -35,14 +35,14 @@ const MessagePage = () => {
           e.preventDefault();
           try {
                const verifyStatus = await axios.get(
-                    `${import.meta.env.VITE_SERVER_URL}/api/v1/messages/userstatus/${username}`
+                    `/api/v1/messages/userstatus/${username}`
                );
                if (verifyStatus.data.data === false) {
                     toast.error("User is not accepting messages!");
                     return;
                }
 
-               const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/v1/messages/create`, {
+               const response = await axios.post(`/api/v1/messages/create`, {
                     content: message,
                     username: username,
                });

@@ -8,7 +8,7 @@ const Home = () => {
 
      const handleSearch = async () => {
           try {
-               const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/v1/users/search`, {
+               const response = await axios.post(`/api/v1/users/search`, {
                     value: query,
                });
 
@@ -22,7 +22,7 @@ const Home = () => {
      useEffect(() => {
           (async () => {
                try {
-                    const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/v1/users/random`);
+                    const response = await axios.get(`/api/v1/users/random`);
                     setUsers(response.data.data);
                } catch (error) {
                     console.log("Error in fetching random users ::", error);

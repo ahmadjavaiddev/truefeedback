@@ -16,21 +16,31 @@ const SignUpPage = () => {
      const navigate = useNavigate();
 
      const handleChange = (e) => {
+          const { name, value } = e.target;
+
+          const formattedUsername =
+               name === "username"
+                    ? value.trim().replace(/\W+/g, "-").replace(/-{2,}/g, "-")
+                    : value;
+
           setUserData({
                ...userData,
-               [e.target.name]: e.target.value,
+               [name]: formattedUsername,
           });
      };
 
      const handleSignUp = async (e) => {
           e.preventDefault();
           try {
-               const response = await axios.post(`https://truefeedback-backend.vercel.app/api/v1/users/register`, {
-                    username: userData.username,
-                    fullName: userData.fullName,
-                    email: userData.email,
-                    password: userData.password,
-               });
+               const response = await axios.post(
+                    `https://truefeedback-backend.vercel.app/api/v1/users/register`,
+                    {
+                         username: userData.username,
+                         fullName: userData.fullName,
+                         email: userData.email,
+                         password: userData.password,
+                    }
+               );
 
                if (response.data.data) {
                     setUserData({

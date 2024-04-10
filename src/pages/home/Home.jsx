@@ -8,11 +8,13 @@ const Home = () => {
 
      const handleSearch = async () => {
           try {
-               const response = await axios.post(`https://truefeedback-backend.vercel.app/api/v1/users/search`, {
-                    value: query,
-               });
+               const response = await axios.post(
+                    `https://truefeedback-backend.vercel.app/api/v1/users/search`,
+                    {
+                         value: query,
+                    }
+               );
 
-               console.log(response.data.data);
                setUsers(response.data.data);
           } catch (error) {
                console.log("Error in handleSearch:", error);
@@ -22,7 +24,9 @@ const Home = () => {
      useEffect(() => {
           (async () => {
                try {
-                    const response = await axios.get(`https://truefeedback-backend.vercel.app/api/v1/users/random`);
+                    const response = await axios.get(
+                         `https://truefeedback-backend.vercel.app/api/v1/users/random`
+                    );
                     setUsers(response.data.data);
                } catch (error) {
                     console.log("Error in fetching random users ::", error);

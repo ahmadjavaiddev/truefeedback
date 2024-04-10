@@ -5,7 +5,6 @@ import { setCurrentUser } from "../../app/features/user/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
-import Cookies from "universal-cookie";
 
 const Login = () => {
      const [userData, setUserData] = useState({
@@ -33,7 +32,7 @@ const Login = () => {
      const handleLogin = async (e) => {
           e.preventDefault();
           try {
-               const response = await axios.post(`https://truefeedback-backend.vercel.app/api/v1/users/login`, {
+               const response = await axios.post(`/api/v1/users/login`, {
                     email: userData.email,
                     password: userData.password,
                });
@@ -45,13 +44,6 @@ const Login = () => {
                     });
                     toast.success(response.data.message);
                }
-               // const cookies = new Cookies(null, { path: "/" });
-
-               // cookies.set("accessToken", response.data.data.accessToken);
-               // cookies.set("refreshToken", response.data.data.refreshToken);
-
-               // console.log("AccessToken Is ::", cookies.get("accessToken"));
-               // console.log("RefreshToken Is ::", cookies.get("refreshToken"));
 
                dispatch(setCurrentUser(response.data.data));
                navigate("/dashboard");

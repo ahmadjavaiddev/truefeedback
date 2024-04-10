@@ -3,12 +3,14 @@ import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
+import { retriveToken } from "../../helpers/tokenHandler";
 
 const ProfilePage = () => {
      const [messages, setMessages] = useState([]);
      const user = useSelector((state) => state?.user?.user?.user);
      const [loading, setloading] = useState(true);
      const [acceptMessages, setAcceptMessages] = useState(false);
+     const userToken = retriveToken();
 
      const handleCopyLink = async () => {
           try {
@@ -24,7 +26,12 @@ const ProfilePage = () => {
      const handleDeleteMessage = async (messageId) => {
           try {
                const response = await axios.delete(
-                    `https://truefeedback-backend.vercel.app/api/v1/messages/delete/${messageId}`
+                    `/api/v1/messages/delete/${messageId}`,
+                    {
+                         headers: {
+                              Authorization: `Bearer ${userToken}`,
+                         },
+                    }
                );
                if (response.data.data) {
                     const newMessages = messages.filter(
@@ -40,7 +47,11 @@ const ProfilePage = () => {
 
      const handleReloadMessages = async () => {
           try {
-               const response = await axios.get(`https://truefeedback-backend.vercel.app/api/v1/messages`);
+               const response = await axios.get(`/api/v1/messages`, {
+                    headers: {
+                         Authorization: `Bearer ${userToken}`,
+                    },
+               });
                setMessages(response.data.data);
                setloading(false);
                toast.success("Messages Reloaded Successfully!");
@@ -51,8 +62,11 @@ const ProfilePage = () => {
 
      const handleAcceptMessages = async () => {
           try {
-               const response = await axios.post(`https://truefeedback-backend.vercel.app/api/v1/messages/accept`, {
+               const response = await axios.post(`/api/v1/messages/accept`, {
                     value: !acceptMessages,
+                    headers: {
+                         Authorization: `Bearer ${userToken}`,
+                    },
                });
 
                setAcceptMessages(response.data.data);
@@ -65,11 +79,22 @@ const ProfilePage = () => {
      useEffect(() => {
           (async () => {
                try {
-                    const response = await axios.get(`https://truefeedback-backend.vercel.app/api/v1/messages`);
+                    // const userToken = retriveToken();
+
+                    const response = await axios.get(`/api/v1/messages`, {
+                         headers: {
+                              Authorization: `Bearer ${userToken}`,
+                         },
+                    });
                     setMessages(response.data.data);
 
                     const responseAccept = await axios.get(
-                         `https://truefeedback-backend.vercel.app/api/v1/messages/userstatus`
+                         `/api/v1/messages/userstatus`,
+                         {
+                              headers: {
+                                   Authorization: `Bearer ${userToken}`,
+                              },
+                         }
                     );
 
                     setAcceptMessages(responseAccept.data.data);

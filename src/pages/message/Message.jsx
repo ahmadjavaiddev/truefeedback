@@ -24,7 +24,7 @@ const MessagePage = () => {
      const handleSuggestMessages = async () => {
           try {
                const response = await axios.get(
-                    `https://truefeedback-backend.vercel.app/api/v1/messages/generate`
+                    `https://true-feedback-backend.vercel.app/api/v1/messages/generate`
                );
 
                setSuggestedMessages(response.data.data);
@@ -37,7 +37,7 @@ const MessagePage = () => {
           e.preventDefault();
           try {
                const verifyStatus = await axios.get(
-                    `https://truefeedback-backend.vercel.app/api/v1/messages/userstatus/${username}`
+                    `https://true-feedback-backend.vercel.app/api/v1/messages/userstatus/${username}`
                );
                if (verifyStatus.data.data === false) {
                     toast.error("User is not accepting messages!");
@@ -45,7 +45,7 @@ const MessagePage = () => {
                }
 
                const response = await axios.post(
-                    `https://truefeedback-backend.vercel.app/api/v1/messages/create`,
+                    `https://true-feedback-backend.vercel.app/api/v1/messages/create`,
                     {
                          content: message,
                          username: username,

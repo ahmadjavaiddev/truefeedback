@@ -9,7 +9,7 @@ const Home = () => {
      const handleSearch = async () => {
           try {
                const response = await axios.post(
-                    `https://truefeedback-backend.vercel.app/api/v1/users/search`,
+                    `https://true-feedback-backend.vercel.app/api/v1/users/search`,
                     {
                          value: query,
                     }
@@ -25,7 +25,7 @@ const Home = () => {
           (async () => {
                try {
                     const response = await axios.get(
-                         `https://truefeedback-backend.vercel.app/api/v1/users/random`
+                         `https://true-feedback-backend.vercel.app/api/v1/users/random`
                     );
                     setUsers(response.data.data);
                } catch (error) {

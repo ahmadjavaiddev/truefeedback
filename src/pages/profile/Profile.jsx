@@ -26,7 +26,7 @@ const ProfilePage = () => {
      const handleDeleteMessage = async (messageId) => {
           try {
                const response = await axios.delete(
-                    `https://truefeedback-backend.vercel.app/api/v1/messages/delete/${messageId}`,
+                    `https://true-feedback-backend.vercel.app/api/v1/messages/delete/${messageId}`,
                     {
                          headers: {
                               Authorization: `Bearer ${userToken}`,
@@ -48,7 +48,7 @@ const ProfilePage = () => {
      const handleReloadMessages = async () => {
           try {
                const response = await axios.get(
-                    `https://truefeedback-backend.vercel.app/api/v1/messages`,
+                    `https://true-feedback-backend.vercel.app/api/v1/messages`,
                     {
                          headers: {
                               Authorization: `Bearer ${userToken}`,
@@ -66,7 +66,7 @@ const ProfilePage = () => {
      const handleAcceptMessages = async () => {
           try {
                const response = await axios.get(
-                    `https://truefeedback-backend.vercel.app/api/v1/messages/accept`,
+                    `https://true-feedback-backend.vercel.app/api/v1/messages/accept`,
                     {
                          headers: {
                               Authorization: `Bearer ${userToken}`,
@@ -85,7 +85,7 @@ const ProfilePage = () => {
           (async () => {
                try {
                     const response = await axios.get(
-                         `https://truefeedback-backend.vercel.app/api/v1/messages`,
+                         `https://true-feedback-backend.vercel.app/api/v1/messages`,
                          {
                               headers: {
                                    Authorization: `Bearer ${userToken}`,
@@ -95,7 +95,7 @@ const ProfilePage = () => {
                     setMessages(response.data.data);
 
                     const responseAccept = await axios.get(
-                         `https://truefeedback-backend.vercel.app/api/v1/messages/userstatus`,
+                         `https://true-feedback-backend.vercel.app/api/v1/messages/userstatus`,
                          {
                               headers: {
                                    Authorization: `Bearer ${userToken}`,

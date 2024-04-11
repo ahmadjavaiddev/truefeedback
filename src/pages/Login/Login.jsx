@@ -52,7 +52,7 @@ const Login = () => {
                     }
                }
                const response = await axios.post(
-                    `https://truefeedback-backend.vercel.app/api/v1/users/login`,
+                    `https://true-feedback-backend.vercel.app/api/v1/users/login`,
                     {
                          emailOrUsername: userData.emailOrUsername,
                          password: userData.password,

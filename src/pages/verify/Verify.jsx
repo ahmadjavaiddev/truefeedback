@@ -27,7 +27,7 @@ const VerifyPage = () => {
                setProcessing(true);
                setButtonDisabled(true);
                const response = await axios.post(
-                    `https://truefeedback-backend.vercel.app/api/v1/users/verify`,
+                    `https://true-feedback-backend.vercel.app/api/v1/users/verify`,
                     {
                          verificationCode: userData.userToken,
                          email: userData.userEmail,
@@ -51,7 +51,7 @@ const VerifyPage = () => {
      useEffect(() => {
           (async () => {
                const response = await axios.post(
-                    `https://truefeedback-backend.vercel.app/api/v1/users/verify/validate`,
+                    `https://true-feedback-backend.vercel.app/api/v1/users/verify/validate`,
                     {
                          verificationCode: urlToken,
                          email: userEmail,

@@ -72,7 +72,7 @@ const Login = () => {
                setButtonDisabled(false);
                navigate("/dashboard");
           } catch (error) {
-               console.log("Error logging in ::", error);
+               console.log("Something went wrong");
           }
      };
 

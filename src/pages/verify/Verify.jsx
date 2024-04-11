@@ -33,7 +33,7 @@ const VerifyPage = () => {
                          email: userData.userEmail,
                     }
                );
-               console.log(response.data.data);
+
                if (response.data.data.success === true) {
                     setProcessing(false);
                     setButtonDisabled(false);
@@ -43,36 +43,42 @@ const VerifyPage = () => {
           } catch (error) {
                setProcessing(false);
                setButtonDisabled(false);
-               console.log("Error in handleVerify ::", error);
+               // console.log("Error in handleVerify ::", error);
+               console.log("Something went wrong");
                setErrorMessage("Error in verifying email!");
           }
      };
 
      useEffect(() => {
           (async () => {
-               const response = await axios.post(
-                    `https://true-feedback-backend.vercel.app/api/v1/users/verify/validate`,
-                    {
-                         verificationCode: urlToken,
-                         email: userEmail,
+               try {
+                    const response = await axios.post(
+                         `https://true-feedback-backend.vercel.app/api/v1/users/verify/validate`,
+                         {
+                              verificationCode: urlToken,
+                              email: userEmail,
+                         }
+                    );
+
+                    if (response.data.success === false) {
+                         setErrorMessage("Token is not valid!");
+                         setDisableForm(true);
+                         return;
                     }
-               );
 
-               if (response.data.success === false) {
-                    setErrorMessage("Token is not valid!");
-                    setDisableForm(true);
-                    return;
-               }
+                    setUserData({
+                         userToken: urlToken,
+                         userEmail: userEmail,
+                    });
 
-               setUserData({
-                    userToken: urlToken,
-                    userEmail: userEmail,
-               });
-
-               if (userData.userToken.length > 5) {
-                    setButtonDisabled(false);
-               } else {
-                    setButtonDisabled(true);
+                    if (userData.userToken.length > 5) {
+                         setButtonDisabled(false);
+                    } else {
+                         setButtonDisabled(true);
+                    }
+               } catch (error) {
+                    console.log("Something went wrong");
+                    setErrorMessage("Error in verifying email!");
                }
           })();
      }, [userData.userToken, userData.userEmail]);

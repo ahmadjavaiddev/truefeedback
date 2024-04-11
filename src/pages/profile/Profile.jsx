@@ -19,7 +19,8 @@ const ProfilePage = () => {
                );
                toast.success("Link Copied Successfully!");
           } catch (error) {
-               console.log("Error While Copying Link ::", error);
+               console.log("Something went wrong");
+               // console.log("Error While Copying Link ::", error);
           }
      };
 
@@ -41,7 +42,8 @@ const ProfilePage = () => {
                }
                toast.success("Message Deleted Successfully!");
           } catch (error) {
-               console.log("Error deleting Message ::", error);
+               console.log("Something went wrong");
+               // console.log("Error deleting Message ::", error);
           }
      };
 
@@ -59,7 +61,8 @@ const ProfilePage = () => {
                setloading(false);
                toast.success("Messages Reloaded Successfully!");
           } catch (error) {
-               console.log("Error While Fetching Messages ::", error);
+               console.log("Something went wrong");
+               // console.log("Error While Fetching Messages ::", error);
           }
      };
 
@@ -77,7 +80,8 @@ const ProfilePage = () => {
                setAcceptMessages(response.data.data);
                toast.success("Messages Status Updated Successfully!");
           } catch (error) {
-               console.log("Error While Updating Messages Status ::", error);
+               // console.log("Error While Updating Messages Status ::", error);
+               console.log("Something went wrong");
           }
      };
 
@@ -106,7 +110,8 @@ const ProfilePage = () => {
                     setAcceptMessages(responseAccept.data.data);
                     setloading(false);
                } catch (error) {
-                    console.log("Error While Fetching Messages ::", error);
+                    // console.log("Error While Fetching Messages ::", error);
+                    console.log("Something went wrong");
                }
           })();
      }, []);

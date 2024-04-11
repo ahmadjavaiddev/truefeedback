@@ -71,7 +71,8 @@ const SignUpPage = () => {
                setButtonDisabled(false);
                navigate("/");
           } catch (error) {
-               console.log("Error Signing ::", error);
+               // console.log("Error Signing ::", error);
+               console.log("Something went wrong");
           }
      };
 

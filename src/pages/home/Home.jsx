@@ -17,7 +17,7 @@ const Home = () => {
 
                setUsers(response.data.data);
           } catch (error) {
-               console.log("Error in handleSearch:", error);
+               console.log("Something went wrong");
           }
      };
 
@@ -29,7 +29,7 @@ const Home = () => {
                     );
                     setUsers(response.data.data);
                } catch (error) {
-                    console.log("Error in fetching random users ::", error);
+                    console.log("Something went wrong");
                }
           })();
      }, []);

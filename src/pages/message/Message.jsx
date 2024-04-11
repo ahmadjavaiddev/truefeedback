@@ -29,7 +29,7 @@ const MessagePage = () => {
 
                setSuggestedMessages(response.data.data);
           } catch (error) {
-               console.log("Error in handleSuggestMessages ::", error);
+               console.log("Something went wrong");
           }
      };
 
@@ -54,7 +54,8 @@ const MessagePage = () => {
                setMessage("");
                toast.success("Message Sent Successfully!");
           } catch (error) {
-               console.log("Error adding Message ::", error);
+               // console.log("Error adding Message ::", error);
+               console.log("Something went wrong");
           }
      };
 

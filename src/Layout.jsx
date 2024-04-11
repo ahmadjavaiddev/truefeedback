@@ -15,7 +15,7 @@ const Layout = () => {
 
                     if (user) dispatch(setCurrentUser(user));
                } catch (error) {
-                    console.log("Error in Layout:", error);
+                    console.log("Something went wrong");
                }
           })();
      }, [dispatch]);

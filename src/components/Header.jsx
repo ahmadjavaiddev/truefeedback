@@ -35,7 +35,7 @@ const Header = () => {
                     <div>
                          {user && (
                               <h3 className="hidden md:block text-xl text-white">
-                                   Welcome, {user?.fullName?.toUpperCase()}
+                                   Welcome, {user?.username}
                               </h3>
                          )}
                     </div>

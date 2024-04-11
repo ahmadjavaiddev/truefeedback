@@ -59,6 +59,12 @@ const Login = () => {
                     }
                );
 
+               if (response.data.success === false) {
+                    setErrorMessage(response.data.message);
+                    setProcessing(false);
+                    return;
+               }
+
                if (response.data.data) {
                     setUserData({
                          emailOrUsername: "",

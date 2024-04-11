@@ -59,12 +59,6 @@ const Login = () => {
                     }
                );
 
-               if (response.data.success === false) {
-                    setErrorMessage(response.data.message);
-                    setProcessing(false);
-                    return;
-               }
-
                if (response.data.data) {
                     setUserData({
                          emailOrUsername: "",
@@ -78,6 +72,7 @@ const Login = () => {
                setButtonDisabled(false);
                navigate("/dashboard");
           } catch (error) {
+               setErrorMessage(error.message);
                console.log("Something went wrong");
           }
      };

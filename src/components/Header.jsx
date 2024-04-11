@@ -60,7 +60,7 @@ const Header = () => {
                                    to={"/login"}
                                    className="px-2 py-1 md:px-3 md:py-1 ml-3 bg-white text-black md:text-lg font-semibold rounded-lg border border-gray-300"
                               >
-                                   Login
+                                   Sign In
                               </Link>
                          )}
                     </div>

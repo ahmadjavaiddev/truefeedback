@@ -12,6 +12,9 @@ const SignUpPage = () => {
           password: "",
      });
      const [buttonDisabled, setButtonDisabled] = useState(true);
+     const [processing, setProcessing] = useState(false);
+     const [errorMessage, setErrorMessage] = useState("");
+     const [showPassword, setShowPassword] = useState(false);
      const dispatch = useDispatch();
      const navigate = useNavigate();
 
@@ -32,8 +35,10 @@ const SignUpPage = () => {
      const handleSignUp = async (e) => {
           e.preventDefault();
           try {
+               setProcessing(true);
+               setButtonDisabled(true);
                const response = await axios.post(
-                    `https://truefeedback-backend.vercel.app/api/v1/users/register`,
+                    `http://localhost:5000/api/v1/users/register`,
                     {
                          username: userData.username,
                          fullName: userData.fullName,
@@ -53,6 +58,8 @@ const SignUpPage = () => {
                }
 
                dispatch(setCurrentUser(response.data.data));
+               setProcessing(false);
+               setButtonDisabled(false);
                navigate("/");
           } catch (error) {
                console.log("Error Signing ::", error);
@@ -72,11 +79,11 @@ const SignUpPage = () => {
      }, [userData.username, userData.email, userData.password]);
 
      return (
-          <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+          <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-[90vh] lg:py-0">
                <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                          <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-                              Sign Up
+                              {processing ? "Processing..." : "Sign Up"}
                          </h1>
                          <form
                               className="space-y-4 md:space-y-6"
@@ -126,7 +133,9 @@ const SignUpPage = () => {
                                         Password
                                    </label>
                                    <input
-                                        type="password"
+                                        type={
+                                             showPassword ? "text" : "password"
+                                        }
                                         name="password"
                                         id="password"
                                         placeholder="••••••••"

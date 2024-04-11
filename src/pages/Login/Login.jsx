@@ -8,9 +8,11 @@ import { useSelector } from "react-redux";
 
 const Login = () => {
      const [userData, setUserData] = useState({
-          email: "",
+          emailOrUsername: "",
           password: "",
      });
+     const [buttonDisabled, setButtonDisabled] = useState(true);
+     const [processing, setProcessing] = useState(false);
      const user = useSelector((state) => state?.user?.user?.user);
 
      useEffect(() => {
@@ -32,35 +34,50 @@ const Login = () => {
      const handleLogin = async (e) => {
           e.preventDefault();
           try {
+               setProcessing(true);
+               setButtonDisabled(true);
                const response = await axios.post(
-                    `https://truefeedback-backend.vercel.app/api/v1/users/login`,
+                    `http://localhost:5000/api/v1/users/login`,
                     {
-                         email: userData.email,
+                         emailOrUsername: userData.emailOrUsername,
                          password: userData.password,
                     }
                );
 
                if (response.data.data) {
                     setUserData({
-                         email: "",
+                         emailOrUsername: "",
                          password: "",
                     });
                     toast.success(response.data.message);
                }
 
                dispatch(setCurrentUser(response.data.data));
+               setProcessing(false);
+               setButtonDisabled(false);
                navigate("/dashboard");
           } catch (error) {
                console.log("Error logging in ::", error);
           }
      };
 
+     useEffect(() => {
+          if (
+               userData.emailOrUsername.length > 2 &&
+               userData.password.length > 7
+          ) {
+               setButtonDisabled(false);
+          } else {
+               setButtonDisabled(true);
+          }
+     }, [userData.emailOrUsername, userData.password]);
+
      return (
-          <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+          <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-[90vh] lg:py-0">
                <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                          <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-                              Sign in to your account
+                              {processing ? "Processing..." : "Sign In"}
                          </h1>
                          <form
                               className="space-y-4 md:space-y-6"
@@ -68,19 +85,19 @@ const Login = () => {
                          >
                               <div>
                                    <label
-                                        htmlFor="email"
+                                        htmlFor="emailOrUsername"
                                         className="block mb-2 text-sm font-medium text-gray-900"
                                    >
-                                        Email
+                                        Email or Username
                                    </label>
                                    <input
-                                        type="email"
-                                        name="email"
-                                        id="email"
-                                        value={userData.email}
+                                        type="emailOrUsername"
+                                        name="emailOrUsername"
+                                        id="emailOrUsername"
+                                        value={userData.emailOrUsername}
                                         onChange={handleChange}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 focus:ring-blue-500"
-                                        placeholder="name@company.com"
+                                        placeholder="username or email"
                                         required
                                    />
                               </div>
@@ -105,7 +122,12 @@ const Login = () => {
 
                               <button
                                    type="submit"
-                                   className="w-full text-white bg-[#0F172A] hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                   className={
+                                        buttonDisabled
+                                             ? "w-full text-white bg-gray-500 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                             : "w-full text-white bg-[#0F172A] hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                   }
+                                   disabled={buttonDisabled}
                               >
                                    Sign in
                               </button>

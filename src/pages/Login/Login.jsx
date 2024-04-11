@@ -5,6 +5,7 @@ import { setCurrentUser } from "../../app/features/user/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import { checkEmailIsValid } from "../../helpers/utils";
 
 const Login = () => {
      const [userData, setUserData] = useState({
@@ -13,6 +14,7 @@ const Login = () => {
      });
      const [buttonDisabled, setButtonDisabled] = useState(true);
      const [processing, setProcessing] = useState(false);
+     const [errorMessage, setErrorMessage] = useState("");
      const user = useSelector((state) => state?.user?.user?.user);
 
      useEffect(() => {
@@ -36,8 +38,21 @@ const Login = () => {
           try {
                setProcessing(true);
                setButtonDisabled(true);
+
+               if (userData.emailOrUsername.includes("@")) {
+                    const verifyTheEmail = await checkEmailIsValid(
+                         userData.emailOrUsername
+                    );
+                    if (!verifyTheEmail) {
+                         setErrorMessage(
+                              "Email is not valid. Please enter a valid email or username!"
+                         );
+                         setProcessing(false);
+                         return;
+                    }
+               }
                const response = await axios.post(
-                    `http://localhost:5000/api/v1/users/login`,
+                    `https://truefeedback-backend.vercel.app/api/v1/users/login`,
                     {
                          emailOrUsername: userData.emailOrUsername,
                          password: userData.password,
@@ -76,6 +91,12 @@ const Login = () => {
           <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-[90vh] lg:py-0">
                <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+                         {errorMessage && (
+                              <div className="text-red-500 text-md font-semibold border border-red-500 rounded-lg p-2 text-center">
+                                   {errorMessage}
+                              </div>
+                         )}
+
                          <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                               {processing ? "Processing..." : "Sign In"}
                          </h1>

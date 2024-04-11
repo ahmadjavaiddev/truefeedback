@@ -16,6 +16,7 @@ import SignUpPage from "./pages/signup/SignUp.jsx";
 import MessagePage from "./pages/message/Message.jsx";
 import ProfilePage from "./pages/profile/Profile.jsx";
 import Protected from "./Protected.jsx";
+import VerifyPage from "./pages/verify/Verify.jsx";
 
 const router = createBrowserRouter(
      createRoutesFromElements(
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
                <Route path="login" element={<Login />} />
                <Route path="register" element={<SignUpPage />} />
                <Route path="u/:username" element={<MessagePage />} />
+               <Route path="verify/:urlToken/:userEmail" element={<VerifyPage />} />
                <Route element={<Protected />} path="/">
                     <Route path="dashboard" element={<ProfilePage />} />
                </Route>

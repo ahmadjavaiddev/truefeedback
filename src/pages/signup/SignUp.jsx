@@ -69,7 +69,7 @@ const SignUpPage = () => {
                dispatch(setCurrentUser(response.data.data));
                setProcessing(false);
                setButtonDisabled(false);
-               navigate("/");
+               navigate(`/verifyUser/${userData.email}`);
           } catch (error) {
                console.log("Something went wrong");
           }

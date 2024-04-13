@@ -59,6 +59,13 @@ const Login = () => {
                     }
                );
 
+               if (response.data.statusCode === 401) {
+                    setErrorMessage(response.data.message);
+                    setProcessing(false);
+                    setButtonDisabled(false);
+                    return;
+               }
+
                if (response.data.data) {
                     setUserData({
                          emailOrUsername: "",
@@ -74,6 +81,8 @@ const Login = () => {
           } catch (error) {
                setErrorMessage(error.message);
                console.log("Something went wrong");
+               setProcessing(false);
+               setButtonDisabled(false);
           }
      };
 

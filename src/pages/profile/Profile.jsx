@@ -138,9 +138,9 @@ const ProfilePage = () => {
                          <h2 className="text-md lg:text-lg text-black font-semibold mt-3">
                               Copy Your Unique Link
                          </h2>
-                         <div className="flex">
+                         <div className="flex mt-2">
                               <input
-                                   className="w-full bg-[#FAFAFA] px-3 py-2 rounded-lg mt-2 text-black text-lg font-semibold"
+                                   className="w-full bg-[#FAFAFA] px-3 py-2 rounded-lg text-black text-lg font-semibold"
                                    type="text"
                                    value={`${import.meta.env.VITE_WEBSITE_URL}/u/${user?.username}`}
                                    readOnly

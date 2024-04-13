@@ -20,6 +20,7 @@ const MessagePage = () => {
      ]);
      const user = useSelector((state) => state?.user?.user?.user);
      const [buttonDisabled, setButtonDisabled] = useState(true);
+     const [processing, setProcessing] = useState(false);
 
      const handleSuggestMessages = async () => {
           try {
@@ -36,6 +37,8 @@ const MessagePage = () => {
      const handleAddReview = async (e) => {
           e.preventDefault();
           try {
+               setProcessing(true);
+               setButtonDisabled(true);
                const verifyStatus = await axios.get(
                     `https://true-feedback-backend.vercel.app/api/v1/messages/userstatus/${username}`
                );
@@ -52,9 +55,13 @@ const MessagePage = () => {
                     }
                );
                setMessage("");
+               setProcessing(false);
+               setButtonDisabled(false);
                toast.success("Message Sent Successfully!");
           } catch (error) {
                // console.log("Error adding Message ::", error);
+               setProcessing(false);
+               setButtonDisabled(false);
                console.log("Something went wrong");
           }
      };
@@ -69,7 +76,7 @@ const MessagePage = () => {
           <div className="md:w-[700px] w-full mx-auto px-4 mb-20">
                <div className="mt-20">
                     <h1 className="text-3xl font-bold text-gray-900 text-center">
-                         Public Profile Link
+                         {processing ? "Processing..." : "Public Profile Link"}
                     </h1>
                </div>
                <div className="w-full mt-5">
@@ -90,23 +97,19 @@ const MessagePage = () => {
                          ></textarea>
                     </div>
                     <div className="flex justify-center mt-5">
-                         {buttonDisabled ? (
-                              <button
-                                   type="submit"
-                                   className="mt-4 px-4 py-2 text-sm font-medium text-white bg-gray-500 rounded-lg"
-                                   disabled={buttonDisabled}
-                              >
-                                   Send It
-                              </button>
-                         ) : (
-                              <button
-                                   type="submit"
-                                   className="mt-4 px-4 py-2 text-sm font-medium text-white bg-[#0F172A] rounded-lg hover:bg-gray-700"
-                                   onClick={handleAddReview}
-                              >
-                                   Send It
-                              </button>
-                         )}
+                         {/* {buttonDisabled === true ? ( */}
+                         <button
+                              type="submit"
+                              className={
+                                   buttonDisabled
+                                        ? "mt-4 px-4 py-2 text-sm font-medium text-white bg-gray-500 rounded-lg"
+                                        : "mt-4 px-4 py-2 text-sm font-medium text-white bg-[#0F172A] rounded-lg hover:bg-gray-700"
+                              }
+                              disabled={buttonDisabled}
+                              onClick={handleAddReview}
+                         >
+                              Send It
+                         </button>
                     </div>
                </div>
 

@@ -37,13 +37,13 @@ const ProfilePage = () => {
                          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
                     },
                });
-               console.log(response.data.data);
+          
                setMessages(response.data.data);
                setloading(false);
                toast.success("Messages Reloaded Successfully!");
           } catch (error) {
-               // console.log("Error While Fetching Messages");
-               console.log("Error While Fetching Messages ::", error);
+               console.log("Error While Fetching Messages");
+               // console.log("Error While Fetching Messages ::", error);
           }
      };
 
@@ -121,8 +121,8 @@ const ProfilePage = () => {
                     setAcceptMessages(responseAccept.data.data);
                     setloading(false);
                } catch (error) {
-                    console.log("Error While Fetching Messages ::", error);
-                    // console.log("Error While Fetching Messages");
+                    // console.log("Error While Fetching Messages ::", error);
+                    console.log("Error While Fetching Messages");
                }
           })();
      }, []);

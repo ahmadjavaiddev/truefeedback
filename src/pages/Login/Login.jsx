@@ -75,10 +75,6 @@ const Login = () => {
                }
 
                dispatch(setCurrentUser(response.data.data));
-               console.log(
-                    "response.data.data.accessToken ::",
-                    response.data.data.accessToken
-               );
                localStorage.setItem(
                     "accessToken",
                     response.data.data.accessToken

@@ -32,7 +32,7 @@ const ProfilePage = () => {
 
      const handleReloadMessages = async () => {
           try {
-               const response = await axios.get(`${API}/api/v1/messages`, {
+               const response = await axios.get(`${API}/api/v1/messages/getmessages`, {
                     headers: {
                          Authorization: `Bearer ${userToken}`,
                     },

@@ -1,8 +1,11 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
+
+// const API = "http://localhost:5000";
+const API = "https://true-feedback-backend.vercel.app"
 
 const MessagePage = () => {
      const { username } = useParams();
@@ -25,12 +28,12 @@ const MessagePage = () => {
      const handleSuggestMessages = async () => {
           try {
                const response = await axios.get(
-                    `https://true-feedback-backend.vercel.app/api/v1/messages/generate`
+                    `${API}/api/v1/messages/generate`
                );
 
                setSuggestedMessages(response.data.data);
           } catch (error) {
-               console.log("Something went wrong");
+               console.log("Error Generating Messages");
           }
      };
 
@@ -40,7 +43,7 @@ const MessagePage = () => {
                setProcessing(true);
                setButtonDisabled(true);
                const verifyStatus = await axios.get(
-                    `https://true-feedback-backend.vercel.app/api/v1/messages/userstatus/${username}`
+                    `${API}/api/v1/messages/userstatus/${username}`
                );
                if (verifyStatus.data.data === false) {
                     toast.error("User is not accepting messages!");
@@ -48,12 +51,13 @@ const MessagePage = () => {
                }
 
                const response = await axios.post(
-                    `https://true-feedback-backend.vercel.app/api/v1/messages/create`,
+                    `${API}/api/v1/messages/create`,
                     {
                          content: message,
                          username: username,
                     }
                );
+               console.log(response.data);
                setMessage("");
                setProcessing(false);
                setButtonDisabled(false);
@@ -62,7 +66,7 @@ const MessagePage = () => {
                // console.log("Error adding Message ::", error);
                setProcessing(false);
                setButtonDisabled(false);
-               console.log("Something went wrong");
+               console.log("Error adding Message");
           }
      };
 

@@ -1,10 +1,13 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../app/features/user/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { checkEmailIsValid } from "../../helpers/utils";
+
+// const API = "http://localhost:5000";
+const API = "https://true-feedback-backend.vercel.app"
 
 const SignUpPage = () => {
      const [userData, setUserData] = useState({
@@ -47,7 +50,7 @@ const SignUpPage = () => {
                }
 
                const response = await axios.post(
-                    `https://true-feedback-backend.vercel.app/api/v1/users/register`,
+                    `${API}/api/v1/users/register`,
                     {
                          username: userData.username,
                          fullName: userData.fullName,
@@ -69,7 +72,7 @@ const SignUpPage = () => {
                dispatch(setCurrentUser(response.data.data));
                setProcessing(false);
                setButtonDisabled(false);
-               navigate(`/verifyUser/${userData.email}`);
+               navigate(`/login`);
           } catch (error) {
                console.log("Something went wrong");
           }

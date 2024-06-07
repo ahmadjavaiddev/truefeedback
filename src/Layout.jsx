@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { setCurrentUser } from "./app/features/user/userSlice";
 import Header from "./components/Header";
@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 
 const Layout = () => {
      const dispatch = useDispatch();
-     const user = useSelector((state) => state?.user?.user?.user);
+     // const user = useSelector((state) => state?.user?.user?.user);
 
      useEffect(() => {
           (async () => {
@@ -26,11 +26,11 @@ const Layout = () => {
                <Toaster position="top-right" reverseOrder={true} />
                <Header />
 
-               {user && !user?.verified && (
+               {/* {user && !user?.verified && (
                     <div className="text-red-500 text-md font-semibold border border-red-500 rounded-lg p-2 text-center">
                          Please Verify Your Email to continue!
                     </div>
-               )}
+               )} */}
 
                <Outlet />
           </>

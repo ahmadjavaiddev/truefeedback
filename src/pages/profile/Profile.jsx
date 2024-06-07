@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import { retriveToken } from "../../helpers/tokenHandler";
 import { getOriginalDate } from "../../helpers/getOriginalDate";
+
+// const API = "http://localhost:5000";
+const API = "https://true-feedback-backend.vercel.app"
 
 const ProfilePage = () => {
      const [messages, setMessages] = useState([]);
@@ -22,15 +25,31 @@ const ProfilePage = () => {
                );
                toast.success("Link Copied Successfully!");
           } catch (error) {
-               console.log("Something went wrong");
+               console.log("Error While Copying Link");
                // console.log("Error While Copying Link ::", error);
+          }
+     };
+
+     const handleReloadMessages = async () => {
+          try {
+               const response = await axios.get(`${API}/api/v1/messages`, {
+                    headers: {
+                         Authorization: `Bearer ${userToken}`,
+                    },
+               });
+               setMessages(response.data.data);
+               setloading(false);
+               toast.success("Messages Reloaded Successfully!");
+          } catch (error) {
+               console.log("Error While Fetching Messages");
+               // console.log("Error While Fetching Messages ::", error);
           }
      };
 
      const handleDeleteMessage = async (messageId) => {
           try {
                const response = await axios.delete(
-                    `https://true-feedback-backend.vercel.app/api/v1/messages/delete/${messageId}`,
+                    `${API}/api/v1/messages/delete/${messageId}`,
                     {
                          headers: {
                               Authorization: `Bearer ${userToken}`,
@@ -45,38 +64,20 @@ const ProfilePage = () => {
                }
                setShowPopUp(false);
                setMessageId("");
+               handleReloadMessages()
                toast.success("Message Deleted Successfully!");
           } catch (error) {
-               console.log("Something went wrong");
+               console.log("Error deleting Message");
                setShowPopUp(false);
                setMessageId("");
                // console.log("Error deleting Message ::", error);
           }
      };
 
-     const handleReloadMessages = async () => {
-          try {
-               const response = await axios.get(
-                    `https://true-feedback-backend.vercel.app/api/v1/messages`,
-                    {
-                         headers: {
-                              Authorization: `Bearer ${userToken}`,
-                         },
-                    }
-               );
-               setMessages(response.data.data);
-               setloading(false);
-               toast.success("Messages Reloaded Successfully!");
-          } catch (error) {
-               console.log("Something went wrong");
-               // console.log("Error While Fetching Messages ::", error);
-          }
-     };
-
      const handleAcceptMessages = async () => {
           try {
                const response = await axios.get(
-                    `https://true-feedback-backend.vercel.app/api/v1/messages/accept`,
+                    `${API}api/v1/messages/accept`,
                     {
                          headers: {
                               Authorization: `Bearer ${userToken}`,
@@ -88,7 +89,7 @@ const ProfilePage = () => {
                toast.success("Messages Status Updated Successfully!");
           } catch (error) {
                // console.log("Error While Updating Messages Status ::", error);
-               console.log("Something went wrong");
+               console.log("Error While Updating Messages Status");
           }
      };
 
@@ -100,18 +101,15 @@ const ProfilePage = () => {
      useEffect(() => {
           (async () => {
                try {
-                    const response = await axios.get(
-                         `https://true-feedback-backend.vercel.app/api/v1/messages`,
-                         {
-                              headers: {
-                                   Authorization: `Bearer ${userToken}`,
-                              },
-                         }
-                    );
+                    const response = await axios.get(`${API}/api/v1/messages`, {
+                         headers: {
+                              Authorization: `Bearer ${userToken}`,
+                         },
+                    });
                     setMessages(response.data.data);
 
                     const responseAccept = await axios.get(
-                         `https://true-feedback-backend.vercel.app/api/v1/messages/userstatus`,
+                         `${API}/api/v1/messages/userstatus`,
                          {
                               headers: {
                                    Authorization: `Bearer ${userToken}`,
@@ -123,7 +121,7 @@ const ProfilePage = () => {
                     setloading(false);
                } catch (error) {
                     // console.log("Error While Fetching Messages ::", error);
-                    console.log("Something went wrong");
+                    console.log("Error While Fetching Messages");
                }
           })();
      }, []);

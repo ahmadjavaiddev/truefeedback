@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 
 // const API = "http://localhost:5000";
-const API = "https://true-feedback-backend.vercel.app"
+const API = "https://true-feedback-backend.vercel.app";
 
 const MessagePage = () => {
      const { username } = useParams();
@@ -57,7 +57,7 @@ const MessagePage = () => {
                          username: username,
                     }
                );
-               console.log(response.data);
+               // console.log(response.data);
                setMessage("");
                setProcessing(false);
                setButtonDisabled(false);
@@ -66,6 +66,7 @@ const MessagePage = () => {
                // console.log("Error adding Message ::", error);
                setProcessing(false);
                setButtonDisabled(false);
+               setProcessing(false);
                console.log("Error adding Message");
           }
      };

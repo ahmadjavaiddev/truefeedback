@@ -78,7 +78,7 @@ const ProfilePage = () => {
      const handleAcceptMessages = async () => {
           try {
                const response = await axios.get(
-                    `${API}api/v1/messages/accept`,
+                    `${API}/api/v1/messages/accept`,
                     {
                          headers: {
                               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

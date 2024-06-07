@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { checkEmailIsValid } from "../../helpers/utils";
 
 // const API = "http://localhost:5000";
-const API = "https://true-feedback-backend.vercel.app"
+const API = "https://true-feedback-backend.vercel.app";
 
 const Login = () => {
      const [userData, setUserData] = useState({
@@ -54,13 +54,10 @@ const Login = () => {
                          return;
                     }
                }
-               const response = await axios.post(
-                    `${API}/api/v1/users/login`,
-                    {
-                         emailOrUsername: userData.emailOrUsername,
-                         password: userData.password,
-                    }
-               );
+               const response = await axios.post(`${API}/api/v1/users/login`, {
+                    emailOrUsername: userData.emailOrUsername,
+                    password: userData.password,
+               });
 
                if (response.data.statusCode === 401) {
                     setErrorMessage(response.data.message);
@@ -78,6 +75,14 @@ const Login = () => {
                }
 
                dispatch(setCurrentUser(response.data.data));
+               console.log(
+                    "response.data.data.accessToken ::",
+                    response.data.data.accessToken
+               );
+               localStorage.setItem(
+                    "accessToken",
+                    response.data.data.accessToken
+               );
                setProcessing(false);
                setButtonDisabled(false);
                navigate("/dashboard");

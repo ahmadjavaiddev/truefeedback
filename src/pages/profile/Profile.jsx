@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
-import { retriveToken } from "../../helpers/tokenHandler";
+// import { retriveToken } from "../../helpers/tokenHandler";
 import { getOriginalDate } from "../../helpers/getOriginalDate";
 
 // const API = "http://localhost:5000";
@@ -16,7 +16,7 @@ const ProfilePage = () => {
      const [acceptMessages, setAcceptMessages] = useState(false);
      const [showPopUp, setShowPopUp] = useState(false);
      const [messageId, setMessageId] = useState("");
-     const userToken = retriveToken();
+     // const userToken = retriveToken();
 
      const handleCopyLink = async () => {
           try {
@@ -34,15 +34,16 @@ const ProfilePage = () => {
           try {
                const response = await axios.get(`${API}/api/v1/messages/getmessages`, {
                     headers: {
-                         Authorization: `Bearer ${userToken}`,
+                         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
                     },
                });
+               console.log(response.data.data);
                setMessages(response.data.data);
                setloading(false);
                toast.success("Messages Reloaded Successfully!");
           } catch (error) {
-               console.log("Error While Fetching Messages");
-               // console.log("Error While Fetching Messages ::", error);
+               // console.log("Error While Fetching Messages");
+               console.log("Error While Fetching Messages ::", error);
           }
      };
 
@@ -52,7 +53,7 @@ const ProfilePage = () => {
                     `${API}/api/v1/messages/delete/${messageId}`,
                     {
                          headers: {
-                              Authorization: `Bearer ${userToken}`,
+                              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
                          },
                     }
                );
@@ -80,7 +81,7 @@ const ProfilePage = () => {
                     `${API}api/v1/messages/accept`,
                     {
                          headers: {
-                              Authorization: `Bearer ${userToken}`,
+                              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
                          },
                     }
                );
@@ -101,9 +102,9 @@ const ProfilePage = () => {
      useEffect(() => {
           (async () => {
                try {
-                    const response = await axios.get(`${API}/api/v1/messages`, {
+                    const response = await axios.get(`${API}/api/v1/messages/getmessages`, {
                          headers: {
-                              Authorization: `Bearer ${userToken}`,
+                              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
                          },
                     });
                     setMessages(response.data.data);
@@ -112,7 +113,7 @@ const ProfilePage = () => {
                          `${API}/api/v1/messages/userstatus`,
                          {
                               headers: {
-                                   Authorization: `Bearer ${userToken}`,
+                                   Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
                               },
                          }
                     );
@@ -120,8 +121,8 @@ const ProfilePage = () => {
                     setAcceptMessages(responseAccept.data.data);
                     setloading(false);
                } catch (error) {
-                    // console.log("Error While Fetching Messages ::", error);
-                    console.log("Error While Fetching Messages");
+                    console.log("Error While Fetching Messages ::", error);
+                    // console.log("Error While Fetching Messages");
                }
           })();
      }, []);

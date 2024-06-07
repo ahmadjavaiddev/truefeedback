@@ -1,4 +1,3 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logOutUser } from "../app/features/user/userSlice";
@@ -14,6 +13,7 @@ const Header = () => {
      const handleUserLogout = async () => {
           try {
                dispatch(logOutUser());
+               localStorage.removeItem("accessToken");
                navigate("/login");
                toast.success("User Logged Out Successfully!");
           } catch (error) {
